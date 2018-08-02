@@ -183,15 +183,16 @@ public class AbstractMQClient implements IMQClient {
     return msg;
   }
 
-  /**
-   * @name @see com.xiaodou.queue.client.AbstractMQClient.java
-   * @CopyRright (c) 2016 by Corp.XiaodouTech
-   * 
-   * @author <a href="mailto:zhaodan@corp.51xiaodou.com">zhaodan</a>
-   * @date 2016年6月24日
-   * @description 消息盒子
-   * @version 1.0
-   */
+
+   /**
+ * @name AbstractMQClient 
+ * CopyRright (c) 2018 by AllSafe Technology
+ *
+ * @author <a href="mailto:hzd82274@gmail.com">zdhuang</a>
+ * @date 2018年8月2日
+ * @description 消息盒子
+ * @version 1.0
+ */
   public static class MessageBox {
 
     /** FIRST_LEVEL 第一层级 */
