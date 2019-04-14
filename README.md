@@ -35,7 +35,8 @@ public class QueueService {
 
   // 生命消息名
   private enum Message {
-    AddKeyworkResourceAndUpdateCourseResource
+    AddKeyworkResourceAndUpdateCourseResource,
+    ...  // 去定义自己的消息名称
   }
 
   // 定义队列的初始化数据、例如扫描模块指定的目录
@@ -53,6 +54,8 @@ public class QueueService {
   public void addKeyworkResourceAndUpdateCourseResource(CourseKeywordResourceModel ckrm) {
     m.sendMessage(Message.AddKeyworkResourceAndUpdateCourseResource.toString(), ckrm);
   }
+  
+  .... // 去定义自己需要的异步方法
 
 }
 ```
