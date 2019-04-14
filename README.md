@@ -186,3 +186,7 @@ public void createCourseInfo(CourseInfoPojo pojo) {
 }
 ```
 完！
+
+
+##### 2. 消息拒绝策略(RejectedExecutionHandler)
+	// TODO
