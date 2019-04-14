@@ -3,7 +3,7 @@
 `note:如果Coding中有问题，还请大家及时多多指正`
 
 
-EXAMPLE
+#### EXAMPLE
 
 * Business Facade Demonstrate:
 ``` java
@@ -131,3 +131,58 @@ public class DefaultWorker extends AbstractDefaultWorker{
 
 }
 ```
+
+#### Advanced paragraphs
+##### 1. 需要处理的实体时间有依赖性要求(即数据处理的时序行)<br>
+		比如：<br>
+ 		Course-->tb_course、Chapter-->tb_chapter、Item-->tb_item <br>
+		tb_item表内含有tb_chapter的外键、而tb_chapter表内含有tb_course的外键<br>
+即数据落库顺序应该为tb_course->tb_chapter->tb_item，这样方可保存各自父级的引用用于保存自己当前的数据<br>
+
+
+// 声明Service
+``` java
+@Service("queueService")
+public class QueueService {
+
+  public enum Message {
+    CreateCourse, CreateChapter, CreateItem, CreateResource
+  }
+
+  private IMQClient m = new AbstractMQClient(AliyunWorker.class, DefaultMessageQueueManager.class);
+
+  public void sendMessageBox(MessageBox box) {
+    m.sendMessage(box);
+  }
+}
+```
+// 业务方法中会通过用户定义的时序前后queue会顺序执行添加到队列的消息
+``` java
+public void createCourseInfo(CourseInfoPojo pojo) {
+   if (null == pojo) return;
+    MessageBox box = new MessageBox();
+
+    MoocCourse course = new MoocCourse();
+    // 创建Course的优先级为最高
+    box.addCurrentLevelMessage(Message.CreateCourse.toString(), course);
+    if (null == pojo.getChapterArray() || pojo.getChapterArray().isEmpty()) return;
+    for (ChapterInfo chapterInfo : pojo.getChapterArray()) {
+        MoocChapter chapter = new MoocChapter();
+
+        // 创建Chapter的优先级为其次
+        box.addCurrentLevelMessage(Message.CreateChapter.toString(), chapter);
+        if (null != chapterInfo.getItemArray() && !chapterInfo.getItemArray().isEmpty()) {
+            for (ItemInfo itemInfo : chapterInfo.getItemArray()) {
+                MoocItem item = new MoocItem();
+        
+                item.setChapter(chapter);
+		
+	       // 创建Chapter的优先级为最后
+               box.addCurrentLevelMessage(Message.CreateItem.toString(), item);
+            }
+        }
+     }
+     queueService.sendMessageBox(box);
+}
+```
+完！
