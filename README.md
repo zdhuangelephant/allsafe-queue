@@ -134,9 +134,9 @@ public class DefaultWorker extends AbstractDefaultWorker{
 
 #### Advanced paragraphs
 ##### 1. 需要处理的实体时间有依赖性要求(即数据处理的时序行)<br>
-		比如：<br>
- 		Course-->tb_course、Chapter-->tb_chapter、Item-->tb_item <br>
-		tb_item表内含有tb_chapter的外键、而tb_chapter表内含有tb_course的外键<br>
+比如：<br>
+ Course-->tb_course、Chapter-->tb_chapter、Item-->tb_item <br>
+tb_item表内含有tb_chapter的外键、而tb_chapter表内含有tb_course的外键<br>
 即数据落库顺序应该为tb_course->tb_chapter->tb_item，这样方可保存各自父级的引用用于保存自己当前的数据<br>
 
 
