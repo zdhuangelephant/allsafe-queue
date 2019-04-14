@@ -15,7 +15,7 @@ public class QueueService {
     AddKeyworkResourceAndUpdateCourseResource
   }
 
-  // 定义队列的初始化数据、例如扫描模块指定的目录
+  // 定义队列的初始化数据、例如扫描模块指定的目录****
   private ContainerParamModel queueContainerModel = new ContainerParamModel();
   {
     this.queueContainerModel.setScanPath("com.allsafe.ms");
