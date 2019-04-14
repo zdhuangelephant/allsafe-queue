@@ -75,9 +75,9 @@ public class AddKeyworkResourceAndUpdateCourseResourceWork extends AbstractDefau
 }
 ```
 
-* Work空实现(Option)
+* Worker空实现(Option)
 ``` java
-public class DefaultWork extends AbstractDefaultWorker{
+public class DefaultWorker extends AbstractDefaultWorker{
 
   @Override
   public void domain(DefaultMessage message, IMQCallBacker<DefaultMessage> callback)
