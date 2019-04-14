@@ -5,6 +5,29 @@
 
 EXAMPLE
 
+* Business Facade Demonstrate:
+``` java
+@Service
+public class KeyworkResourceFacdae {
+
+  @Resource
+  private QueueService queueService
+
+  // 此处进行业务层的调用函数的声明
+  public void saveOrUpdateXXX(CourseKeywordResourceModel ckrm) {
+    CourseKeywordResourceModel ckrm = null;
+    
+    // 具体的业务处理逻辑 start
+    ckrm = init()
+    // 具体的业务处理逻辑 end
+    
+    // 需要异步处理
+    queueService.addKeyworkResourceAndUpdateCourseResource(Message.AddKeyworkResourceAndUpdateCourseResource.toString(), ckrm);
+  }
+
+}
+```
+
 * 生产者:
 ``` java
 @Service("queueService")
